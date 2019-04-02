@@ -38,21 +38,27 @@ class LeadsController < ApplicationController
     @lead = Lead.find_by(id: params[:id])
 
     # We grab the entire text history from the Twilio API
-    client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    messages_from_lead = client.account.messages.list({
-                  :to   => ENV['TWILIO_PHONE_NUMBER'], 
-                  :from => @lead.phone
-    })
-    messages_from_call_converter = client.account.messages.list({
-                  :to   => @lead.phone,
-                  :from => ENV['TWILIO_PHONE_NUMBER']
-    })
-    @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent}
+    # client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    # messages_from_lead = client.account.messages.list({
+    #               :to   => ENV['TWILIO_PHONE_NUMBER'], 
+    #               :from => @lead.phone
+    # })
+    # messages_from_call_converter = client.account.messages.list({
+    #               :to   => @lead.phone,
+    #               :from => ENV['TWILIO_PHONE_NUMBER']
+    # })
+    # @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent}
   end
 
   def update
     @lead = Lead.find_by(id: params[:id])
-    if @lead.update(lead_params)    
+    if params[:outreach_text] != ""
+      @outreach = Outreach.new(text: params[:outreach_text],
+        lead_id: @lead.id
+        )
+      @outreach.save
+    end 
+    if @lead.update(lead_params) 
       flash[:success] = "Lead saved!"
       redirect_to '/'
     else
