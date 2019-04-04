@@ -37,17 +37,17 @@ class LeadsController < ApplicationController
   def edit
     @lead = Lead.find_by(id: params[:id])
 
-    # We grab the entire text history from the Twilio API
-    # client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    # messages_from_lead = client.account.messages.list({
-    #               :to   => ENV['TWILIO_PHONE_NUMBER'], 
-    #               :from => @lead.phone
-    # })
-    # messages_from_call_converter = client.account.messages.list({
-    #               :to   => @lead.phone,
-    #               :from => ENV['TWILIO_PHONE_NUMBER']
-    # })
-    # @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent}
+    We grab the entire text history from the Twilio API
+    client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    messages_from_lead = client.account.messages.list({
+                  :to   => ENV['TWILIO_PHONE_NUMBER'], 
+                  :from => @lead.phone
+    })
+    messages_from_call_converter = client.account.messages.list({
+                  :to   => @lead.phone,
+                  :from => ENV['TWILIO_PHONE_NUMBER']
+    })
+    @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent}
   end
 
   def update
