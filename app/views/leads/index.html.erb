@@ -39,7 +39,7 @@
                 </tr>
                 <tr :id = "lead.id" class = "collapse">
                   <td colspan = "7">
-                    <div v-for= "event in lead.events" style="font-size:20px; font-weight: bold;">
+                    <div v-for= "event in lead.events" style="font-size:15px; font-weight: bold;">
                       <p>
                         <span style="width:150px;">{{ event.name }}</span>
                         <span>{{ moment(event.created_at).format('dddd MMM Do YYYY, h:mm a') }}</span>
