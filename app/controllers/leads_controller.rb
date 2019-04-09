@@ -122,8 +122,9 @@ class LeadsController < ApplicationController
       to: "+14406106300",
       body: "Hi, #{params[:first_name]}! This is Rena from the Actualize coding bootcamp. Do you have a minute to talk?"
       )
-      flash[:success] = "Auto text sent!"
-      redirect_to "/leads/:id/edit"
+      # flash[:success] = "Auto text sent!"
+      # redirect_to "/leads/:id/edit"
+      render json: {message: 'Auto Text Sent!'}
   end
 
   private
