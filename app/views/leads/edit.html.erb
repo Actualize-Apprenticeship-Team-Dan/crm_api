@@ -37,6 +37,7 @@
                <h2 class="h5 display">Auto Text</h2>
             </div>
            <input id="first_name" type="hidden" value="<%= @lead.first_name %>" class="form-control"/>
+           <input id="phone" type="hidden" value="<%= @lead.phone %>" class="form-control"/>
             <div class="card-header d-flex align-items-center" style="border: none">
               <button id="autoText" class="btn btn-info">Send Auto-Text</button>
             </div>
@@ -182,6 +183,7 @@ document.getElementById('autoText').onclick = function () {
   var params = {
     // To: document.getElementById('phone-number').value,
     first_name: document.getElementById('first_name').value
+    phone: document.getElementById('phone').value
   };
   $.post("/auto_text", params).then(data => {
     var autoDiv = document.getElementById('auto-text-flash');
