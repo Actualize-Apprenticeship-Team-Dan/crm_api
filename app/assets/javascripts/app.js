@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     methods: {
       moment: function(date) {
         return moment(date);
+      },
+      showEvents:  function(lead) {
+        document.getElementById(lead.id).classList.add("show");
       }
     },
     computed: {

@@ -27,15 +27,27 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="lead in leads">
-                <td>{{ moment(lead.created_at).format('dddd MMM Do YYYY, h:mm a') }}</td>
-                <td>{{ lead.first_name }}</td>
-                <td>{{ lead.last_name }}</td>
-                <td><a v-bind:href="'/leads/' + lead.id + '/edit'">{{ lead.email }}</a></td>
-                <td>{{ lead.phone }}</td>
-                <td>{{ moment(lead.appointment_date).format('dddd MMM Do YYYY, h:mm a') }}</td>
-                <td> {{ lead.notes }}</td>
-              </tr>
+              <template v-for="lead in leads">
+                <tr @click="showEvents(lead)">
+                  <td>{{ moment(lead.created_at).format('dddd MMM Do YYYY, h:mm a') }}</td>
+                  <td>{{ lead.first_name }}</td>
+                  <td>{{ lead.last_name }}</td>
+                  <td><a v-bind:href="'/leads/' + lead.id + '/edit'">{{ lead.email }}</a></td>
+                  <td>{{ lead.phone }}</td>
+                  <td>{{ moment(lead.appointment_date).format('dddd MMM Do YYYY, h:mm a') }}</td>
+                  <td> {{ lead.notes }}</td>
+                </tr>
+                <tr :id = "lead.id" class = "collapse">
+                  <td colspan = "7">
+                    <div v-for= "event in lead.events" style="font-size:15px; font-weight: bold;">
+                      <p>
+                        <span style="width:150px;">{{ event.name }}</span>
+                        <span>{{ moment(event.created_at).format('dddd MMM Do YYYY, h:mm a') }}</span>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </template>
             </tbody>
           </table>
         </div>
