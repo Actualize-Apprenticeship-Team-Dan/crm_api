@@ -1,5 +1,5 @@
 class LeadsController < ApplicationController
-  before_action :authenticate_admin!, except: [:token, :voice, :text]
+  before_action :authenticate_admin!, except: [:token, :voice, :text, :auto_text]
 
   def index
     @all_leads_active = "active"
@@ -47,7 +47,8 @@ class LeadsController < ApplicationController
                   :to   => @lead.phone,
                   :from => ENV['TWILIO_PHONE_NUMBER']
     })
-    @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent}
+  autotext
+    @messages = (messages_from_lead + messages_from_call_converter).sort_by {|m| m.date_sent} 
   end
 
   def update
@@ -118,6 +119,19 @@ class LeadsController < ApplicationController
   end
 
   def no_leads
+  end
+
+  def auto_text
+    client = Twilio::REST::Client.new
+    client.messages.create(
+      from: ENV['TWILIO_PHONE_NUMBER'],
+      to: params[:phone],
+      # to: "+14406106300",
+      body: "Hi, #{params[:first_name]}! This is Rena from the Actualize coding bootcamp. Do you have a minute to talk?"
+      )
+      # flash[:success] = "Auto text sent!"
+      # redirect_to "/leads/:id/edit"
+      render json: {message: 'Auto Text Sent!'}
   end
 
   private

@@ -34,7 +34,16 @@
             </div>
             <div id="log"></div>
             <div class="card-header d-flex align-items-center">
-              <h2 class="h5 display">Send Custom Text Message</h2>
+               <h2 class="h5 display">Auto Text</h2>
+            </div>
+           <input id="first_name" type="hidden" value="<%= @lead.first_name %>" class="form-control"/>
+           <input id="phone" type="hidden" value="<%= @lead.phone %>" class="form-control"/>
+            <div class="card-header d-flex align-items-center" style="border: none">
+              <button id="autoText" class="btn btn-info">Send Auto-Text</button>
+            </div>
+              <div id="auto-text-flash"></div>
+            <div class="card-header d-flex align-items-center">
+               <h2 class="h5 display">Send Custom Text Message</h2>
             </div>
 
             <%= form_tag "/text", {class: "form-horizontal text-form"} do %>
@@ -168,6 +177,24 @@
   };
 
 });
+
+// Bind button to autotext
+document.getElementById('autoText').onclick = function () {
+  var params = {
+    // To: document.getElementById('phone-number').value,
+    first_name: document.getElementById('first_name').value
+    phone: document.getElementById('phone').value
+  };
+  $.post("/auto_text", params).then(data => {
+    var autoDiv = document.getElementById('auto-text-flash');
+    autoDiv.innerHTML += '<p class="alert alert-success">' + data.message + '</p>';
+    // autoDiv.classList.add("alert");
+    // autoDiv.classList.add("alert-success");
+    autoDiv.scrollTop = autoDiv.scrollHeight;
+    console.log(data);
+  });
+};
+
 
 // Activity log
 function log(message) {
