@@ -13,13 +13,13 @@
           <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>Created</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Appointment Date</th>
-                <th>Notes</th>
+                <th><div  v-on:click="sortLeads('created')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'created' }">Created</div></th>
+                <th><div  v-on:click="sortLeads('first_name')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'first_name' }">First Name</div></th>
+                <th><div v-on:click="sortLeads('last_name')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'last_name' }">Last Name</div></th>
+                <th><div  v-on:click="sortLeads('email')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'email' }">Email</div></th>
+                <th><div  v-on:click="sortLeads('phone')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'phone' }">Phone</div></th>
+                <th><div  v-on:click="sortLeads('appointment_date')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'appointment_date' }">Appointment Date</div></th>
+                <th><div  v-on:click="sortLeads('notes')" class="btn btn-link" :class="{'text-uppercase': sortKey === 'notes' }">Notes</div></th>
               </tr>
             </thead>
             <tbody>
