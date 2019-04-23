@@ -24,4 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/settings/edit' => 'settings#edit'
+  patch '/settings' => 'settings#update'
+
 end
