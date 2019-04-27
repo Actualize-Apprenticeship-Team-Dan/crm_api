@@ -135,8 +135,7 @@ class LeadsController < ApplicationController
     client = Twilio::REST::Client.new
     client.messages.create(
       from: ENV['TWILIO_PHONE_NUMBER'],
-      # to: params[:phone],
-      to: "+14406106300",
+      to: params[:phone],
       body: @auto_text_body
       )
       # flash[:success] = "Auto text sent!"
